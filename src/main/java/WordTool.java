@@ -13,7 +13,7 @@ public class WordTool {
         wordList   = new ArrayList<>();
         forgetList = new ArrayList<>();
         WordData   = new data().Data;
-        relIndex   = 1;
+        relIndex   = 0;
         try {
             currentIndex = new YamlReader().Idx;
         } catch (FileNotFoundException e) {
@@ -45,8 +45,10 @@ public class WordTool {
         wordList.addAll(forgetList);
         // 清空忘记列表
         forgetList.clear();
+
+        int addCount =  wordList.size();
         // 基于序号顺序添加单词
-        for (int i = 1; i <= 10 - wordList.size(); i++) {
+        for (int i = 0; i < 10 - addCount; i++) {
             // 边界检查
             if(currentIndex+i> WordData.length) break;
             Word newWord = new Word(currentIndex+i,
@@ -58,13 +60,18 @@ public class WordTool {
     }
 
     public Word GetNextWord() {
-        if (currentIndex < wordList.size()) {
+        if (relIndex < wordList.size()) {
             Word nextWord = wordList.get(relIndex);
             relIndex++;
             currentIndex = nextWord.getID();
             return nextWord;
         }
         return null;
+    }
+
+    public Word GetCurrentWord() {
+        // wordList从0开始
+        return wordList.get(relIndex);
     }
 }
 
