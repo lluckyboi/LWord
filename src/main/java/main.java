@@ -1,11 +1,15 @@
+import javax.swing.*;
+
 public class main {
     public static void main(String[] args) {
+        // 初始化
         WordTool wordTool = new WordTool();
         wordTool.GenerateList();
-        Word word = wordTool.GetCurrentWord();
-        System.out.println("ID:"+word.getID());
-        System.out.println("word:"+word.getWord());
-        System.out.println("phonetic:"+word.getPhonetic());
-        System.out.println("Definition:"+word.getDefinition());
+
+        SwingUtilities.invokeLater(() -> {
+            WordBook app = new WordBook();
+            app.show();
+        });
+
     }
 }
