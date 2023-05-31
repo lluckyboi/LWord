@@ -8,10 +8,10 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Objects;
 
-public class data {
+public class Data {
     public Object[][] Data;
 
-    public data() {
+    public Data() {
         String filePath = Objects.requireNonNull(this.getClass().getClassLoader().getResource("")).getPath() + "/words.xls";
         System.out.println("路径: " + filePath);
 

@@ -12,7 +12,7 @@ public class WordTool {
     public WordTool() {
         wordList   = new ArrayList<>();
         forgetList = new ArrayList<>();
-        WordData   = new data().Data;
+        WordData   = new Data().Data;
         relIndex   = 0;
         try {
             currentIndex = new YamlReader().Idx;
