@@ -12,7 +12,7 @@ public class YamlReader {
     public  YamlReader() throws FileNotFoundException {
         File dumpFile=new File(Objects.requireNonNull(this.getClass().getClassLoader().getResource("")).getPath() + "/conf.yaml");
         Map mp = Yaml.loadType(dumpFile, HashMap.class);
-        System.out.println(mp.get("IDX").hashCode());
+//        System.out.println(mp.get("IDX").hashCode());
         Idx =mp.get("IDX").hashCode();
     }
 }
