@@ -10,9 +10,9 @@ public class WordBook {
 
     private WordTool wordTool;
 
-    public WordBook() {
+    public WordBook(WordTool cWordTool) {
         // 初始化 WordTool 对象
-        wordTool = new WordTool();
+        wordTool = cWordTool;
 
         // 创建主窗口
         frame = new JFrame("Word Book");

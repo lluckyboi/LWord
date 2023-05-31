@@ -7,7 +7,7 @@ public class main {
         wordTool.GenerateList();
 
         SwingUtilities.invokeLater(() -> {
-            WordBook app = new WordBook();
+            WordBook app = new WordBook(wordTool);
             app.show();
         });
 
