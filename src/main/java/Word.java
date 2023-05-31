@@ -1,12 +1,18 @@
 public class Word {
-    private String word;
-    private String phonetic;
-    private String definition;
+    private  int    ID;
+    private  String word;
+    private  String phonetic;
+    private  String definition;
 
-    public Word(String word, String phonetic, String definition) {
+    public Word(int ID,String word, String phonetic, String definition) {
+        this.ID = ID;
         this.word = word;
         this.phonetic = phonetic;
         this.definition = definition;
+    }
+
+    public int getID(){
+        return  ID;
     }
 
     public String getWord() {

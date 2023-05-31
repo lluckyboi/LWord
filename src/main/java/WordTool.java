@@ -1,15 +1,24 @@
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class WordTool {
     private List<Word> wordList;
     private List<Word> forgetList;
+    private final Object[][] WordData;
     private int currentIndex;
+    private int relIndex;
 
     public WordTool() {
-        wordList = new ArrayList<>();
+        wordList   = new ArrayList<>();
         forgetList = new ArrayList<>();
-        currentIndex = 0;
+        WordData   = new data().Data;
+        relIndex   = 1;
+        try {
+            currentIndex = new YamlReader().Idx;
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     public void addWord(Word word) {
@@ -36,14 +45,23 @@ public class WordTool {
         wordList.addAll(forgetList);
         // 清空忘记列表
         forgetList.clear();
-        // todo 基于序号顺序添加单词
-
+        // 基于序号顺序添加单词
+        for (int i = 1; i <= 10 - wordList.size(); i++) {
+            // 边界检查
+            if(currentIndex+i> WordData.length) break;
+            Word newWord = new Word(currentIndex+i,
+                    WordData[currentIndex+i][1].toString(),
+                    WordData[currentIndex+i][2].toString(),
+                    WordData[currentIndex+i][3].toString());
+            wordList.add(newWord);
+        }
     }
 
     public Word GetNextWord() {
         if (currentIndex < wordList.size()) {
-            Word nextWord = wordList.get(currentIndex);
-            currentIndex++;
+            Word nextWord = wordList.get(relIndex);
+            relIndex++;
+            currentIndex = nextWord.getID();
             return nextWord;
         }
         return null;
