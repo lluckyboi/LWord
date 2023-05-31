@@ -6,6 +6,7 @@ public class main {
         WordTool wordTool = new WordTool();
         wordTool.GenerateList();
 
+        // 绘制GUI
         SwingUtilities.invokeLater(() -> {
             WordBook app = new WordBook(wordTool);
             app.show();
