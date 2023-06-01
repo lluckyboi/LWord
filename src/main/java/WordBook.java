@@ -3,6 +3,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
@@ -144,6 +146,11 @@ public class WordBook {
             public void actionPerformed(ActionEvent e) { showDef(); }
         });
 
+        // 设置按钮样式
+        setButtonStyle(nextButton);
+        setButtonStyle(forgetButton);
+        setButtonStyle(defButton);
+
         // 创建按钮面板
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(nextButton);
@@ -167,4 +174,35 @@ public class WordBook {
         frame.setVisible(true);
     }
 
+    public void setButtonStyle(JButton button){
+        // 设置按钮背景色
+        Color backgroundColor = new Color(238,233,233);
+        button.setBackground(backgroundColor);
+
+        // 设置按钮前景色（文字颜色）
+        Color foregroundColor = new Color(30, 30, 30);
+        button.setForeground(foregroundColor);
+
+        // 设置按钮边框样式
+        button.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
+        button.setBorderPainted(false);
+        button.setFocusPainted(false);
+        button.setContentAreaFilled(false);
+
+        // 设置为不透明
+        button.setOpaque(true);
+
+        // 添加鼠标悬停效果
+        button.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                button.setBackground(backgroundColor.brighter());
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                button.setBackground(backgroundColor);
+            }
+        });
+    }
 }
