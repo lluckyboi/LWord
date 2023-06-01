@@ -1,7 +1,11 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
+import java.util.Objects;
 
 public class WordBook {
     private JFrame frame;
@@ -10,6 +14,7 @@ public class WordBook {
     private JLabel defLabel;
     private JButton nextButton;
     private JButton forgetButton;
+    private JButton defButton;
 
     private WordTool wordTool;
 
@@ -18,10 +23,20 @@ public class WordBook {
         wordTool = cWordTool;
 
         // 创建主窗口
-        frame = new JFrame("Word Book");
+        frame = new JFrame("LWord");
         frame.setSize(400, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        // 设置应用图标
+        String path = Objects.requireNonNull(
+                        this.getClass().getClassLoader().getResource(""))
+                .getPath()+"/LWord.png";
+        try {
+            Image icon = ImageIO.read(new File(path));
+            frame.setIconImage(icon);
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
 
         // 设置布局管理器为边界布局
         frame.setLayout(new BorderLayout());
@@ -35,7 +50,7 @@ public class WordBook {
         if (nextWord != null) {
             setWord(wordLabel,nextWord);
             setPho(phoLabel,nextWord);
-            setDef(defLabel,nextWord);
+//            setDef(defLabel,nextWord);
         } else {
             wordTool.GenerateList();
             if(wordTool.getWordCount() == 0) wordLabel.setText("No words");
@@ -92,7 +107,7 @@ public class WordBook {
         // 设置文本
         setWord(wordLabel, wordTool.GetCurrentWord());
         setPho(phoLabel, wordTool.GetCurrentWord());
-        setDef(defLabel, wordTool.GetCurrentWord());
+//        setDef(defLabel, wordTool.GetCurrentWord());
 
         // Label加入面板
         wordPanel.add(wordLabel,gbc);
@@ -111,7 +126,7 @@ public class WordBook {
         nextButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                showNextWord();
+                showNextWord();clearDef();
             }
         });
 
@@ -119,16 +134,32 @@ public class WordBook {
         forgetButton = new JButton("忘记了");
         forgetButton.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) { forgetCurrentWord(); showNextWord(); }
+            public void actionPerformed(ActionEvent e) { forgetCurrentWord(); showNextWord();clearDef(); }
+        });
+
+        // 查看释义按钮
+        defButton = new JButton("查看释义");
+        defButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) { showDef(); }
         });
 
         // 创建按钮面板
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(nextButton);
         buttonPanel.add(forgetButton);
+        buttonPanel.add(defButton);
 
         // 加入主窗口
         frame.add(buttonPanel, BorderLayout.SOUTH);
+    }
+
+    public void showDef() {
+        setDef(defLabel,wordTool.GetCurrentWord());
+    }
+
+    public void clearDef() {
+        defLabel.setText("");
     }
 
     public void show() {
