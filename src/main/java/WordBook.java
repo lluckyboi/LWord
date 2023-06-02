@@ -9,6 +9,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
 
+import static javax.swing.SwingConstants.HORIZONTAL;
+
 public class WordBook {
     private JFrame frame;
     private JLabel wordLabel;
@@ -79,17 +81,18 @@ public class WordBook {
 
     private void setDef(JLabel label , Word word) { label.setText("<html><div style='width: 250px;text-align: center;'>"+word.getDefinition().toString()+"</div></html>");}
 
-    private void showWord(){
+    private void showWord() {
         // Grid分布
         GridBagConstraints gbc = new GridBagConstraints();
+        GridLayout gLayout = new GridLayout(3,1);
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.anchor = GridBagConstraints.NORTH;
-        gbc.insets = new Insets(0, 0, 0, 0);
+        gbc.fill  = HORIZONTAL;
 
         // 创建单词面板
         JPanel wordPanel = new JPanel();
-        wordPanel.setLayout(new GridLayout(3,1));
+        wordPanel.setLayout(gLayout);
 
         // 创建单词标签
         wordLabel = new JLabel();
@@ -99,7 +102,7 @@ public class WordBook {
         // 音标标签
         phoLabel = new JLabel();
         phoLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        phoLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        phoLabel.setFont(new Font("Arial", Font.ITALIC, 20));
 
         //释义标签
         defLabel = new JLabel();
@@ -117,7 +120,6 @@ public class WordBook {
         wordPanel.add(phoLabel,gbc);
         gbc.gridy = 2;
         wordPanel.add(defLabel,gbc);
-
 
         frame.add(wordPanel);
     }
