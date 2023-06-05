@@ -329,7 +329,7 @@ public class WordBook {
     }
 
     private void loadFavWords() {
-        for(int i =1;i<= 10;i++){
+        for(int i =1;i<= wordTool.GetFavListSize();i++){
             Word word = wordTool.GetNextFav();
             if (word != null){
                 JLabel wordLabel = new JLabel("<html><div style='width: 200px;text-align: center;margin: 5px'>" +
