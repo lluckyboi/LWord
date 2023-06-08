@@ -126,6 +126,11 @@ public class WordTool {
     public List<Integer> GetFavList() {
         return favList;
     }
+
+    // 获取单词列表
+    public List<Word> GetWordList() {
+        return wordList;
+    }
 }
 
 
