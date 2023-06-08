@@ -121,6 +121,11 @@ public class WordTool {
     public boolean isFav(){
         return favList.contains(GetCurrentWord().getID());
     }
+
+    // 获取收藏列表
+    public List<Integer> GetFavList() {
+        return favList;
+    }
 }
 
 

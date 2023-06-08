@@ -18,4 +18,21 @@ public class YamlReader {
         Idx = (int) mp.get("IDX");
         FavList =(List<Integer>) mp.get("FavList");
     }
+
+    public void setData(int cIDX,List<Integer> cFavList) {
+        Idx = cIDX;
+        FavList = cFavList;
+    }
+
+    public void WriteDataToYaml() {
+        File dumpFile=new File(Objects.requireNonNull(this.getClass().getClassLoader().getResource("")).getPath() + "/conf.yaml");
+        Map mp = new HashMap();
+        mp.put("IDX",Idx);
+        mp.put("FavList",FavList);
+        try {
+            Yaml.dump(mp,dumpFile);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 }

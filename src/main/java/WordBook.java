@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Objects;
 
@@ -31,6 +32,8 @@ public class WordBook {
         frame.setSize(400, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        // 添加保存数据的Hook
+        saveDataHook();
 
         // 初始化收藏窗口
         favFrame = new JFrame("收藏");
@@ -371,5 +374,24 @@ public class WordBook {
     private void favWord() {
         wordTool.FavWord();
         loadFavWords();
+    }
+
+    // 关闭窗口时保存数据
+    private void saveDataHook() {
+        frame.addWindowListener(new java.awt.event.WindowAdapter(){
+            public void windowClosing(java.awt.event.WindowEvent e){
+                System.out.println("正在保存数据");
+
+                try {
+                    YamlReader yamlReader = new YamlReader();
+                    yamlReader.setData(wordTool.GetCurrentWord().getID(),wordTool.GetFavList());
+                    yamlReader.WriteDataToYaml();
+                } catch (FileNotFoundException ex) {
+                    ex.printStackTrace();
+                }
+                System.out.println("成功");
+                System.exit(0);
+            }
+        });
     }
 }
